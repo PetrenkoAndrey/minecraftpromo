@@ -8,6 +8,14 @@ export function Footer() {
     <footer className="mt-16 border-t border-white/10 px-4 py-10 text-center text-xs text-white/40 sm:px-6">
       <p>{t('footer.1')}</p>
       <p className="mt-2">{t('footer.2').replace('{year}', String(year))}</p>
+      <p className="mt-4">
+        <a
+          href="#admin"
+          className="text-[#3b82f6]/90 underline-offset-2 hover:underline"
+        >
+          {t('footer.adminLink')}
+        </a>
+      </p>
     </footer>
   )
 }

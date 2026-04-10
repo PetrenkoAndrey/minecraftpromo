@@ -2,7 +2,7 @@ import { useCallback, useState, type ReactNode } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { Hero } from './components/Hero'
 import { SectionCard } from './components/SectionCard'
-import { ShopTeaser } from './components/ShopTeaser'
+import { ShopSection } from './components/shop/ShopSection'
 import { RecentPurchases } from './components/RecentPurchases'
 import { Footer } from './components/Footer'
 import {
@@ -13,6 +13,8 @@ import {
   IconYouTube,
 } from './components/SocialIcons'
 import { useLanguage } from './i18n/LanguageContext'
+import { useHashFragment } from './hooks/useHashFragment'
+import { AdminOrdersPanel } from './components/admin/AdminOrdersPanel'
 
 const SERVER_IP = 'play.ytromax.example'
 const ONLINE_PLAYERS = 819
@@ -104,6 +106,11 @@ function ContactLink({
 }
 
 export function App() {
+  const hash = useHashFragment()
+  if (hash === 'admin') {
+    return <AdminOrdersPanel />
+  }
+
   const { t } = useLanguage()
   const [copied, setCopied] = useState(false)
 
@@ -128,7 +135,7 @@ export function App() {
         />
 
         <div className="flex flex-col gap-12 px-4 pb-4 sm:gap-14 sm:px-6">
-          <ShopTeaser />
+          <ShopSection />
           <RecentPurchases />
 
           <SectionCard id="rules" title={t('rules.title')} icon={<BookIcon />}>

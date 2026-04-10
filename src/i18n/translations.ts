@@ -30,10 +30,34 @@ const uk = {
   'shop.kits': 'Набори',
   'shop.deal': 'Вигідно',
   'shop.allProducts': 'Усі товари',
-  'shop.empty1':
-    'Оформлення покупок підключіть до свого магазину (EasyDonate, тощо)',
-  'shop.empty2':
-    'Натисніть товар зліва після інтеграції — тут з’являться деталі та оплата.',
+  'shop.allKits': 'Усі набори',
+  'shop.loading': 'Завантаження…',
+  'shop.loadError':
+    'Не вдалося завантажити каталог. Перезапустіть `npm run dev` (порт API 3001) або задайте VITE_API_URL.',
+  'shop.pickItem': 'Оберіть товар або набір у списку зліва.',
+  'shop.kitIncludes': 'У наборі',
+  'shop.qty': 'Кількість',
+  'shop.addToCart': 'До кошика',
+  'shop.cartTitle': 'Кошик',
+  'shop.cartEmpty': 'Порожньо',
+  'shop.remove': 'Прибрати',
+  'shop.clearCart': 'Очистити',
+  'shop.checkout': 'Оформити',
+  'shop.total': 'Разом',
+  'shop.checkoutTitle': 'Оформлення замовлення',
+  'shop.orderHint':
+    'Після відправки модератор зв’яжеться для оплати та видачі на сервері.',
+  'shop.orderOk':
+    'Замовлення #{id} прийнято. Сума: {total}₽. Очікуйте повідомлення для оплати.',
+  'shop.orderClose': 'Закрити',
+  'shop.fieldNick': 'Нік у Minecraft (латиниця, 3–16)',
+  'shop.fieldContact': 'Контакт (Telegram / Discord)',
+  'shop.fieldContactHint': 'Наприклад @username або Discord-тег',
+  'shop.fieldNotes': 'Коментар (необов’язково)',
+  'shop.orderBad': 'Помилка відправки',
+  'shop.placeOrder': 'Відправити замовлення',
+  'shop.placingOrder': 'Відправляємо…',
+  'shop.cancel': 'Скасувати',
   'rank.from': 'від',
 
   'recent.title1': 'Останні ',
@@ -72,6 +96,27 @@ const uk = {
 
   'footer.1': 'Не пов’язано з Mojang Studios або Microsoft.',
   'footer.2': 'YTRomaX © {year} · Minecraft сервер та медіа',
+  'footer.adminLink': 'Замовлення (адмін)',
+
+  'admin.title': 'Замовлення',
+  'admin.back': 'На головну',
+  'admin.tokenHint':
+    'Токен з файлу server/.env (ADMIN_TOKEN). Не публікуй його та не додавай у Git.',
+  'admin.tokenLabel': 'ADMIN_TOKEN',
+  'admin.load': 'Завантажити',
+  'admin.loading': 'Завантаження…',
+  'admin.unauthorized': 'Невірний токен.',
+  'admin.notConfigured':
+    'На сервері не задано ADMIN_TOKEN (≥8 символів) у server/.env. Додай і перезапусти API.',
+  'admin.loadError': 'Помилка',
+  'admin.noOrders': 'Поки немає замовлень.',
+  'admin.mcNick': 'Нік Minecraft',
+  'admin.contact': 'Контакт',
+  'admin.total': 'Сума',
+  'admin.status': 'Статус',
+  'admin.locale': 'Мова',
+  'admin.notes': 'Коментар',
+  'admin.items': 'Позиції',
 } as const
 
 const ru: Record<keyof typeof uk, string> = {
@@ -104,10 +149,34 @@ const ru: Record<keyof typeof uk, string> = {
   'shop.kits': 'Наборы',
   'shop.deal': 'Выгодно',
   'shop.allProducts': 'Все товары',
-  'shop.empty1':
-    'Подключите оформление покупок к своему магазину (EasyDonate и т. п.)',
-  'shop.empty2':
-    'После интеграции нажмите товар слева — здесь появятся детали и оплата.',
+  'shop.allKits': 'Все наборы',
+  'shop.loading': 'Загрузка…',
+  'shop.loadError':
+    'Не удалось загрузить каталог. Перезапустите `npm run dev` (порт API 3001) или задайте VITE_API_URL.',
+  'shop.pickItem': 'Выберите товар или набор в списке слева.',
+  'shop.kitIncludes': 'В наборе',
+  'shop.qty': 'Количество',
+  'shop.addToCart': 'В корзину',
+  'shop.cartTitle': 'Корзина',
+  'shop.cartEmpty': 'Пусто',
+  'shop.remove': 'Убрать',
+  'shop.clearCart': 'Очистить',
+  'shop.checkout': 'Оформить',
+  'shop.total': 'Итого',
+  'shop.checkoutTitle': 'Оформление заказа',
+  'shop.orderHint':
+    'После отправки модератор свяжется для оплаты и выдачи на сервере.',
+  'shop.orderOk':
+    'Заказ #{id} принят. Сумма: {total}₽. Ожидайте сообщение для оплаты.',
+  'shop.orderClose': 'Закрыть',
+  'shop.fieldNick': 'Ник в Minecraft (латиница, 3–16)',
+  'shop.fieldContact': 'Контакт (Telegram / Discord)',
+  'shop.fieldContactHint': 'Например @username или тег Discord',
+  'shop.fieldNotes': 'Комментарий (необязательно)',
+  'shop.orderBad': 'Ошибка отправки',
+  'shop.placeOrder': 'Отправить заказ',
+  'shop.placingOrder': 'Отправляем…',
+  'shop.cancel': 'Отмена',
 
   'rank.from': 'от',
 
@@ -147,6 +216,27 @@ const ru: Record<keyof typeof uk, string> = {
 
   'footer.1': 'Не связано с Mojang Studios или Microsoft.',
   'footer.2': 'YTRomaX © {year} · Minecraft сервер и медиа',
+  'footer.adminLink': 'Заказы (админ)',
+
+  'admin.title': 'Заказы',
+  'admin.back': 'На главную',
+  'admin.tokenHint':
+    'Токен из server/.env (ADMIN_TOKEN). Не публикуй и не коммить в Git.',
+  'admin.tokenLabel': 'ADMIN_TOKEN',
+  'admin.load': 'Загрузить',
+  'admin.loading': 'Загрузка…',
+  'admin.unauthorized': 'Неверный токен.',
+  'admin.notConfigured':
+    'На сервере не задан ADMIN_TOKEN (≥8 символов) в server/.env. Добавь и перезапусти API.',
+  'admin.loadError': 'Ошибка',
+  'admin.noOrders': 'Пока нет заказов.',
+  'admin.mcNick': 'Ник Minecraft',
+  'admin.contact': 'Контакт',
+  'admin.total': 'Сумма',
+  'admin.status': 'Статус',
+  'admin.locale': 'Язык',
+  'admin.notes': 'Комментарий',
+  'admin.items': 'Позиции',
 }
 
 export type MessageKey = keyof typeof uk
