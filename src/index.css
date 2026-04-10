@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+/* Курсор-меч на інтерактивах */
+:root {
+  --cursor-sword: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23c0c0c0' d='M14 2h4v8h-4z'/%3E%3Cpath fill='%23e8e8e8' d='M15 2h2v8h-2z'/%3E%3Cpath fill='%238b6914' d='M12 10h8v4h-8z'/%3E%3Cpath fill='%23a67c52' d='M13 10h6v4h-6z'/%3E%3Cpath fill='%235c4033' d='M14 14h4v12h-4z'/%3E%3Cpath fill='%237a5c47' d='M15 14h2v12h-2z'/%3E%3Cpath fill='%23333' d='M10 26h12v4H10z'/%3E%3C/svg%3E")
+    4 4,
+    auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    'Montserrat',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: #000;
+  color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+button:not(:disabled) {
+  cursor: var(--cursor-sword);
+}
+
+input,
+textarea,
+select {
+  cursor: text;
+}
