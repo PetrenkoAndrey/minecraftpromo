@@ -4,7 +4,20 @@ import dotenv from 'dotenv'
 import { initDb } from './db/init.js'
 import { listProducts, listKits } from './controllers/shopController.js'
 import { createOrder } from './controllers/orderController.js'
-import { listOrdersAdmin } from './controllers/adminController.js'
+import { validatePromo } from './controllers/promoController.js'
+import {
+  createPromoAdmin,
+  listPromosAdmin,
+  patchPromoAdmin,
+} from './controllers/adminPromoController.js'
+import {
+  getAdminSettings,
+  listOrdersAdmin,
+  patchAdminOrder,
+  patchAdminSettings,
+} from './controllers/adminController.js'
+import { adminLogin } from './controllers/adminAuthController.js'
+import { getPublicSettings } from './controllers/settingsController.js'
 
 dotenv.config()
 
@@ -31,8 +44,17 @@ app.get('/api/health', (_req, res) => {
 
 app.get('/api/products', listProducts)
 app.get('/api/kits', listKits)
+app.get('/api/settings', getPublicSettings)
 app.post('/api/orders', createOrder)
+app.post('/api/promo/validate', validatePromo)
+app.post('/api/admin/login', adminLogin)
 app.get('/api/admin/orders', listOrdersAdmin)
+app.get('/api/admin/settings', getAdminSettings)
+app.patch('/api/admin/settings', patchAdminSettings)
+app.patch('/api/admin/orders/:id', patchAdminOrder)
+app.get('/api/admin/promos', listPromosAdmin)
+app.post('/api/admin/promos', createPromoAdmin)
+app.patch('/api/admin/promos/:id', patchPromoAdmin)
 
 app.use((_req, res) => {
   res.status(404).json({ error: 'not_found' })

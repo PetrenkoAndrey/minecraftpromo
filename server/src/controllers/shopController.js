@@ -8,7 +8,7 @@ export function listProducts(_req, res) {
       SELECT id, slug,
              name_uk AS nameUk, name_ru AS nameRu,
              description_uk AS descriptionUk, description_ru AS descriptionRu,
-             price_rub AS priceRub, accent, sort_order AS sortOrder
+             price_rub AS priceRub, price_uah AS priceUah, accent, sort_order AS sortOrder
       FROM products WHERE active = 1
       ORDER BY sort_order ASC, id ASC
     `,
@@ -29,7 +29,7 @@ export function listKits(_req, res) {
       SELECT id, slug,
              name_uk AS nameUk, name_ru AS nameRu,
              description_uk AS descriptionUk, description_ru AS descriptionRu,
-             price_rub AS priceRub, sort_order AS sortOrder
+             price_rub AS priceRub, price_uah AS priceUah, sort_order AS sortOrder
       FROM kits WHERE active = 1
       ORDER BY sort_order ASC, id ASC
     `,

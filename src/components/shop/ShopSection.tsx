@@ -4,6 +4,11 @@ import { fetchKits, fetchProducts } from '../../api/shopApi'
 import type { CartLine, ShopKit, ShopProduct } from '../../api/shopTypes'
 import { accentClasses } from './accentMap'
 import { OrderModal } from './OrderModal'
+import {
+  formatAmountWithCurrency,
+  formatFromPrice,
+  lineSubtotalRubUah,
+} from '../../lib/shopMoney'
 
 type Tab = 'products' | 'kits'
 
@@ -80,6 +85,7 @@ export function ShopSection() {
             nameUk: selectedProduct.nameUk,
             nameRu: selectedProduct.nameRu,
             unitPriceRub: selectedProduct.priceRub,
+            unitPriceUah: selectedProduct.priceUah,
           },
         ]
       })
@@ -98,6 +104,7 @@ export function ShopSection() {
             nameUk: selectedKit.nameUk,
             nameRu: selectedKit.nameRu,
             unitPriceRub: selectedKit.priceRub,
+            unitPriceUah: selectedKit.priceUah,
           },
         ]
       })
@@ -111,8 +118,13 @@ export function ShopSection() {
   const clearCart = useCallback(() => setCart([]), [])
 
   const cartTotal = useMemo(
-    () => cart.reduce((s, l) => s + l.unitPriceRub * l.qty, 0),
-    [cart],
+    () =>
+      cart.reduce(
+        (s, l) =>
+          s + lineSubtotalRubUah(l.unitPriceRub, l.unitPriceUah, l.qty, locale),
+        0,
+      ),
+    [cart, locale],
   )
 
   const selectListItem = (p: ShopProduct) => {
@@ -213,7 +225,7 @@ export function ShopSection() {
                           {name(p)}
                         </p>
                         <p className={`text-xs font-semibold ${ac.price}`}>
-                          {t('rank.from')} {p.priceRub}₽
+                          {formatFromPrice(p.priceRub, p.priceUah, locale, t)}
                         </p>
                       </div>
                     </button>
@@ -242,7 +254,7 @@ export function ShopSection() {
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-bold text-white">{name(k)}</p>
                         <p className="text-xs font-semibold text-[#93c5fd]">
-                          {t('rank.from')} {k.priceRub}₽
+                          {formatFromPrice(k.priceRub, k.priceUah, locale, t)}
                         </p>
                       </div>
                     </button>
@@ -269,7 +281,16 @@ export function ShopSection() {
                       {name(l)} ×{l.qty}
                     </span>
                     <span className="flex shrink-0 items-center gap-2 tabular-nums">
-                      {l.unitPriceRub * l.qty}₽
+                      {formatAmountWithCurrency(
+                        lineSubtotalRubUah(
+                          l.unitPriceRub,
+                          l.unitPriceUah,
+                          l.qty,
+                          locale,
+                        ),
+                        locale,
+                        t,
+                      )}
                       <button
                         type="button"
                         onClick={() => removeLine(l.key)}
@@ -282,7 +303,9 @@ export function ShopSection() {
                 ))}
                 <li className="flex justify-between border-t border-white/10 pt-2 text-sm font-bold text-white">
                   <span>{t('shop.total')}</span>
-                  <span>{cartTotal}₽</span>
+                  <span>
+                    {formatAmountWithCurrency(cartTotal, locale, t)}
+                  </span>
                 </li>
               </ul>
             )}
@@ -328,7 +351,12 @@ export function ShopSection() {
                   <p
                     className={`mt-1 text-lg font-bold ${accentClasses(detailProduct.accent).price}`}
                   >
-                    {t('rank.from')} {detailProduct.priceRub}₽
+                    {formatFromPrice(
+                      detailProduct.priceRub,
+                      detailProduct.priceUah,
+                      locale,
+                      t,
+                    )}
                   </p>
                 </div>
               </div>
@@ -374,7 +402,12 @@ export function ShopSection() {
                     {name(detailKit)}
                   </h3>
                   <p className="mt-1 text-lg font-bold text-[#93c5fd]">
-                    {t('rank.from')} {detailKit.priceRub}₽
+                    {formatFromPrice(
+                      detailKit.priceRub,
+                      detailKit.priceUah,
+                      locale,
+                      t,
+                    )}
                   </p>
                 </div>
               </div>

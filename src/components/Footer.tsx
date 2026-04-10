@@ -10,7 +10,7 @@ export function Footer() {
       <p className="mt-2">{t('footer.2').replace('{year}', String(year))}</p>
       <p className="mt-4">
         <a
-          href="#admin"
+          href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}#admin`}
           className="text-[#3b82f6]/90 underline-offset-2 hover:underline"
         >
           {t('footer.adminLink')}

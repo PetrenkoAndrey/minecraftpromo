@@ -1,5 +1,12 @@
 import { apiUrl } from './config'
-import type { OrderPayload, OrderResponse, ShopKit, ShopProduct } from './shopTypes'
+import type {
+  OrderPayload,
+  OrderResponse,
+  PromoValidatePayload,
+  PromoValidateResponse,
+  ShopKit,
+  ShopProduct,
+} from './shopTypes'
 
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
@@ -49,4 +56,25 @@ export async function createOrder(
   const data = (await r.json()) as Partial<OrderResponse> & { error?: string }
   if (!r.ok) throw new Error(data.error || 'order_failed')
   return data as OrderResponse
+}
+
+export async function validatePromo(
+  body: PromoValidatePayload,
+): Promise<PromoValidateResponse> {
+  const r = await fetchResilient(apiUrl('/api/promo/validate'), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: body.items,
+      locale: body.locale,
+      minecraftUsername: body.minecraftUsername,
+      promoCode: body.promoCode,
+    }),
+  })
+  const data = (await r.json()) as Partial<PromoValidateResponse> & {
+    error?: string
+  }
+  if (!r.ok) throw new Error(data.error || 'promo_invalid')
+  if (!data.ok) throw new Error('promo_invalid')
+  return data as PromoValidateResponse
 }

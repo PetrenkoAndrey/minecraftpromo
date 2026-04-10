@@ -1,4 +1,4 @@
-import { useCallback, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { SiteHeader } from './components/SiteHeader'
 import { Hero } from './components/Hero'
 import { SectionCard } from './components/SectionCard'
@@ -15,23 +15,13 @@ import {
 import { useLanguage } from './i18n/LanguageContext'
 import { useHashFragment } from './hooks/useHashFragment'
 import { AdminOrdersPanel } from './components/admin/AdminOrdersPanel'
+import { fetchSiteSettings } from './api/settingsApi'
+import type { SiteSocial } from './api/settingsTypes'
+import { DEFAULT_SITE_SOCIAL } from './constants/defaultSocial'
 
 const SERVER_IP = 'play.ytromax.example'
 const ONLINE_PLAYERS = 819
 const MAX_PLAYERS = 3000
-
-const CONTACT_DISCORD = 'https://discordapp.com/users/romayt1005'
-const CONTACT_TELEGRAM_DM = 'https://t.me/YTRomaX'
-const CONTACT_TELEGRAM_CHANNEL = 'https://t.me/YTRomaX1005'
-const CONTACT_TIKTOK = 'https://www.tiktok.com/@ytromax8605'
-const CONTACT_YOUTUBE = 'https://www.youtube.com/@YTRomaX1005'
-
-const headerSocial = {
-  telegram: CONTACT_TELEGRAM_CHANNEL,
-  discord: CONTACT_DISCORD,
-  youtube: CONTACT_YOUTUBE,
-  tiktok: CONTACT_TIKTOK,
-}
 
 function BookIcon() {
   return (
@@ -107,12 +97,24 @@ function ContactLink({
 
 export function App() {
   const hash = useHashFragment()
-  if (hash === 'admin') {
-    return <AdminOrdersPanel />
-  }
-
   const { t } = useLanguage()
   const [copied, setCopied] = useState(false)
+  const [social, setSocial] = useState<SiteSocial>(DEFAULT_SITE_SOCIAL)
+
+  useEffect(() => {
+    void fetchSiteSettings()
+      .then(setSocial)
+      .catch(() => {
+        /* залишаємо DEFAULT_SITE_SOCIAL */
+      })
+  }, [])
+
+  const headerSocial = {
+    telegram: social.telegramChannel,
+    discord: social.discord,
+    youtube: social.youtube,
+    tiktok: social.tiktok,
+  }
 
   const onCopyIp = useCallback(() => {
     void navigator.clipboard.writeText(SERVER_IP).then(() => {
@@ -120,6 +122,10 @@ export function App() {
       window.setTimeout(() => setCopied(false), 2000)
     })
   }, [])
+
+  if (hash === 'admin') {
+    return <AdminOrdersPanel />
+  }
 
   return (
     <div id="top" className="min-h-screen bg-black text-white">
@@ -185,22 +191,22 @@ export function App() {
                 {t('contacts.title')}
               </h2>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <ContactLink href={CONTACT_DISCORD} icon={<IconDiscord />}>
+                <ContactLink href={social.discord} icon={<IconDiscord />}>
                   Discord
                 </ContactLink>
-                <ContactLink href={CONTACT_TELEGRAM_DM} icon={<IconTelegram />}>
+                <ContactLink href={social.telegramDm} icon={<IconTelegram />}>
                   {t('contact.telegramDm')}
                 </ContactLink>
                 <ContactLink
-                  href={CONTACT_TELEGRAM_CHANNEL}
+                  href={social.telegramChannel}
                   icon={<IconTelegramChannel />}
                 >
                   {t('contact.telegramCh')}
                 </ContactLink>
-                <ContactLink href={CONTACT_TIKTOK} icon={<IconTikTok />}>
+                <ContactLink href={social.tiktok} icon={<IconTikTok />}>
                   TikTok
                 </ContactLink>
-                <ContactLink href={CONTACT_YOUTUBE} icon={<IconYouTube />}>
+                <ContactLink href={social.youtube} icon={<IconYouTube />}>
                   YouTube
                 </ContactLink>
               </div>
