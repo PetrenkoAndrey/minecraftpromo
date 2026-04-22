@@ -9,6 +9,17 @@ export function Footer() {
       <p>{t('footer.1')}</p>
       <p className="mt-2">{t('footer.2').replace('{year}', String(year))}</p>
       <p className="mt-4">
+        <span>{t('footer.developedBy')} </span>
+        <a
+          href="https://t.me/andrey_petrenko27"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#3b82f6]/90 underline-offset-2 hover:underline"
+        >
+          @andrey_petrenko27
+        </a>
+      </p>
+      <p className="mt-3">
         <a
           href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}#admin`}
           className="text-[#3b82f6]/90 underline-offset-2 hover:underline"

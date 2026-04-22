@@ -113,6 +113,7 @@ const uk = {
 
   'footer.1': 'Не пов’язано з Mojang Studios або Microsoft.',
   'footer.2': 'YTRomaX © {year} · Minecraft сервер та медіа',
+  'footer.developedBy': 'Сайт розроблено —',
   'footer.adminLink': 'Замовлення (адмін)',
 
   'admin.title': 'Замовлення',
@@ -302,6 +303,7 @@ const ru: Record<keyof typeof uk, string> = {
 
   'footer.1': 'Не связано с Mojang Studios или Microsoft.',
   'footer.2': 'YTRomaX © {year} · Minecraft сервер и медиа',
+  'footer.developedBy': 'Сайт разработан —',
   'footer.adminLink': 'Заказы (админ)',
 
   'admin.title': 'Заказы',
